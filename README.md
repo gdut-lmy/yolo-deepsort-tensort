@@ -10,14 +10,14 @@
 7. opencv4.5.3
 8. cmake3.21.0
 
-##Build&&run
+## Build&&run
 1. clone this project
 2. mkdir build
 3. cmake ..
 4. make
 5. ./deepsort
 
-##Create yolo.engine and deepsort.engine
+## Create yolo.engine and deepsort.engine
 1.yolo.engine
 
 follow https://github.com/wang-xinyu/tensorrtx.git
