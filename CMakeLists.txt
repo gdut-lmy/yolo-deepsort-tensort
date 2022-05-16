@@ -17,6 +17,8 @@ if(WIN32)
 enable_language(CUDA)
 endif(WIN32)
 
+find_package(realsense2 REQUIRED)
+
 include_directories(/usr/include/Eigen)
 
 include_directories(${PROJECT_SOURCE_DIR}/deepsort/include)
@@ -57,7 +59,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_executable(yolosort ${M_SRC_DIR})
 
-target_link_libraries(yolosort nvinfer cudart yolov5_trt)
+target_link_libraries(yolosort nvinfer cudart yolov5_trt ${realsense2_LIBRARY})
 
 if(UNIX)
 add_definitions(-O2 -pthread)

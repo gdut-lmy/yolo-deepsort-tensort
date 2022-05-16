@@ -377,6 +377,9 @@ ProcessorCount_cmd_sysctl:FILEPATH=/sbin/sysctl
 //Dependencies for the target
 deepsort_LIB_DEPENDS:STATIC=general;opencv_calib3d;general;opencv_core;general;opencv_dnn;general;opencv_features2d;general;opencv_flann;general;opencv_highgui;general;opencv_imgcodecs;general;opencv_imgproc;general;opencv_ml;general;opencv_objdetect;general;opencv_photo;general;opencv_stitching;general;opencv_video;general;opencv_videoio;general;cudart;general;nvinfer;general;nvonnxparser;
 
+//The directory containing a CMake configuration file for realsense2.
+realsense2_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/realsense2
+
 //Value Computed by CMake
 yolosort_BINARY_DIR:STATIC=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug
 

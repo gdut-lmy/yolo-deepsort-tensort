@@ -443,6 +443,30 @@ src/manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/manager.cpp.s
 .PHONY : src/manager.cpp.s
 
+src/realsense_config.o: src/realsense_config.cpp.o
+.PHONY : src/realsense_config.o
+
+# target to build an object file
+src/realsense_config.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/realsense_config.cpp.o
+.PHONY : src/realsense_config.cpp.o
+
+src/realsense_config.i: src/realsense_config.cpp.i
+.PHONY : src/realsense_config.i
+
+# target to preprocess a source file
+src/realsense_config.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/realsense_config.cpp.i
+.PHONY : src/realsense_config.cpp.i
+
+src/realsense_config.s: src/realsense_config.cpp.s
+.PHONY : src/realsense_config.s
+
+# target to generate assembly for a file
+src/realsense_config.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/realsense_config.cpp.s
+.PHONY : src/realsense_config.cpp.s
+
 yolo/src/yolov5_lib.o: yolo/src/yolov5_lib.cpp.o
 .PHONY : yolo/src/yolov5_lib.o
 
@@ -514,6 +538,9 @@ help:
 	@echo "... src/manager.o"
 	@echo "... src/manager.i"
 	@echo "... src/manager.s"
+	@echo "... src/realsense_config.o"
+	@echo "... src/realsense_config.i"
+	@echo "... src/realsense_config.s"
 	@echo "... yolo/src/yolov5_lib.o"
 	@echo "... yolo/src/yolov5_lib.i"
 	@echo "... yolo/src/yolov5_lib.s"

@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/lmy/project/yolov5-deepsort-tensorrt/src/main.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/main.cpp.o"
   "/home/lmy/project/yolov5-deepsort-tensorrt/src/manager.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/manager.cpp.o"
+  "/home/lmy/project/yolov5-deepsort-tensorrt/src/realsense_config.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/realsense_config.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

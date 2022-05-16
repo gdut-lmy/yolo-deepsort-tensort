@@ -17,7 +17,10 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "yolov5_lib.h"
 #include "deepsort.h"
-
+#include "realsense_config.h"
+#define Stride 5 //稀疏化步长
+extern rs2::pipeline_profile profile;
+extern cv::Mat Depthmate, color_mat;
 using std::vector;
 using namespace cv;
 //static Logger gLogger;
@@ -29,6 +32,8 @@ public:
 	// detect and show
 	int TrtDetect(cv::Mat &frame,float &conf_thresh,std::vector<DetectBox> &det);
 	void showDetection(cv::Mat& img, std::vector<DetectBox>& boxes);
+    float GetBoxDepth(DetectBox box);
+    float Get_Area_Depth(DetectBox box);
 
 private:
 	char* yolo_engine_path_ = NULL;
