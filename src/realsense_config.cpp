@@ -1,8 +1,8 @@
 //
 // Created by lmy on 2022/5/13.
 //
-
 #include "realsense_config.h"
+
 
 rs2::pipeline pipes;///生成Realsense管道，用来封装实际的相机设备
 rs2::stream_profile dprofile;
@@ -11,6 +11,7 @@ rs2::stream_profile cprofile;
 Eigen::Matrix<float,3,3> MTR;//相机坐标旋转矩阵
 Eigen::Vector3f V_T;//平移向量T
 Eigen::Matrix<float,3,3> Inner_Transformation_Depth,InnerTransformation_Color;// 相机内参
+
 int Realsense_config(){
     rs2::log_to_console(RS2_LOG_SEVERITY_ERROR);
 
@@ -39,14 +40,6 @@ int Realsense_config(){
     cfg.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 60);
     profile =pipes.start(cfg); ///根据给定的配置启动相机管道
 
-
-    //rs2::frameset data;
-    //data = pipes.wait_for_frames();///等待一帧数据，默认等待5s
-
-/*    rs2::depth_frame depth       = data.get_depth_frame(); ///获取深度图像数据
-    rs2::video_frame color       = data.get_color_frame();  ///获取彩色图像数据
-    dprofile =  depth.get_profile();
-    cprofile =  color.get_profile();*/
     return EXIT_SUCCESS;
 }
 
@@ -138,6 +131,7 @@ float measure_distance(cv::Mat &color,cv::Mat depth,DetectBox box,cv::Size range
     //画出范围
     float distance_sum = 0;
     int  effective_pixel = 0;
+
     for(int y = RectRange.y;y < RectRange.y + RectRange.height;y++)
     {
         for(int x = RectRange.x;x < RectRange.x + RectRange.width;x++)
@@ -151,15 +145,29 @@ float measure_distance(cv::Mat &color,cv::Mat depth,DetectBox box,cv::Size range
         }
     }
     //std::cout << "有效像素点：" << effective_pixel <<std::endl;//输出数据
+
     float effective_distance = distance_sum/effective_pixel;
-    std::cout << "目标距离：" << effective_distance << "m" << std::endl;
-/*    char distance_str[30];
-    sprintf(distance_str,"The distance is:%f m",effective_distance);*/
-/*    cv::rectangle(color,RectRange, cv::Scalar(0,0,255),2,8);
-    cv::putText(color,(std::string)distance_str,cv::Point(color.cols*0.02,color.rows*0.05),
-                cv::FONT_HERSHEY_PLAIN,2,cv::Scalar(0,255,0),2,8);*/
+    //std::cout << "目标距离：" << effective_distance << "m" << std::endl;
+
     return effective_distance;
 }
+
+float getDistanceInMeters(DetectBox box,rs2::depth_frame alignDepthFrame){
+
+    float x=(box.x1+box.x2)/2,y=(box.y1+box.y2)/2;
+    float pd_uv[2];
+    pd_uv[0]=x,pd_uv[1]=y;
+    float Pdc3[3];
+    const auto intrinDepth = alignDepthFrame.get_profile().as<rs2::video_stream_profile>().get_intrinsics();
+    float  pixel_distance_in_meters = alignDepthFrame.get_distance((int)x,(int)y);
+    rs2_deproject_pixel_to_point(Pdc3,&intrinDepth,pd_uv,pixel_distance_in_meters);
+
+    cout<<"X Y Z"<<Pdc3[0]<<" "<<Pdc3[1]<<" "<<Pdc3[2]<<endl;
+    cout<<"O DIS"<<sqrt(pow(Pdc3[0],2)+pow(Pdc3[1],2) +pow(Pdc3[2],2))<< endl;
+    cout<<pixel_distance_in_meters<<endl;
+    return pixel_distance_in_meters;
+}
+
 
 
 int Get_referance() //try

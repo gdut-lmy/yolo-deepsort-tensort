@@ -9,6 +9,7 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/dnn.hpp>
 #include <fstream>
+#include <math.h>
 #include <string>
 #include "yolov5_lib.h"
 #include "deepsort.h"
@@ -22,7 +23,9 @@ cv::Mat align_Depth2Color(cv::Mat depth, const cv::Mat &color, rs2::pipeline_pro
 float get_depth_scale(const rs2::device& dev);
 float measure_distance(cv::Mat &color,cv::Mat depth,DetectBox box,cv::Size range,rs2::pipeline_profile profile);
 int Get_referance();
+float getDistanceInMeters(DetectBox box,rs2::depth_frame aligned_depth_frame);
 extern rs2::pipeline pipes;
 extern rs2::pipeline_profile profile;
+
 
 #endif //YOLOSORT_REALSENSE_CONFIG_H

@@ -10,6 +10,8 @@ CMakeFiles/yolosort.dir/src/main.cpp.o
  ../deepsort/include/model.hpp
  ../deepsort/include/track.h
  ../deepsort/include/tracker.h
+ ../include/SafeQueue.h
+ ../include/ThreadPool1.h
  ../include/cv-helpers.hpp
  ../include/manager.hpp
  ../include/realsense_config.h

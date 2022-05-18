@@ -20,7 +20,7 @@
 #include "realsense_config.h"
 #define Stride 5 //稀疏化步长
 extern rs2::pipeline_profile profile;
-extern cv::Mat Depthmate, color_mat;
+extern cv::Mat depthMat, colorMat;
 using std::vector;
 using namespace cv;
 //static Logger gLogger;
@@ -30,9 +30,9 @@ public:
 	// init 
 	Trtyolosort(char *yolo_engine_path,char *sort_engine_path);
 	// detect and show
-	int TrtDetect(cv::Mat &frame,float &conf_thresh,std::vector<DetectBox> &det);
-	void showDetection(cv::Mat& img, std::vector<DetectBox>& boxes);
-    float GetBoxDepth(DetectBox box);
+    int TrtDetect(cv::Mat &frame,float &conf_thresh,std::vector<DetectBox> &det,rs2::depth_frame aligned_depth_frame);
+	void showDetection(cv::Mat& img, std::vector<DetectBox>& boxes,rs2::depth_frame aligned_depth_frame);
+    float GetBoxDepth(DetectBox box,rs2::depth_frame alignedDepthFrame);
     float Get_Area_Depth(DetectBox box);
 
 private:

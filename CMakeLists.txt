@@ -59,9 +59,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_executable(yolosort ${M_SRC_DIR})
 
-target_link_libraries(yolosort nvinfer cudart yolov5_trt ${realsense2_LIBRARY})
+target_link_libraries(yolosort nvinfer cudart yolov5_trt ${realsense2_LIBRARY} -pthread)
 
-if(UNIX)
-add_definitions(-O2 -pthread)
-endif(UNIX)
+
 set(CMAKE_CXX_FLAGS "-std=c++0x")
