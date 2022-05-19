@@ -3,7 +3,7 @@
 
 typedef struct DetectBox {
     DetectBox(float x1=0, float y1=0, float x2=0, float y2=0, 
-            float confidence=0, float classID=-1, float trackID=-1) {
+            float confidence=0, float classID=-1, float trackID=-1,float dis=0,float *pdc=nullptr,float pixel_x=0,float pixel_y=0,float angle=0) {
         this->x1 = x1;
         this->y1 = y1;
         this->x2 = x2;
@@ -11,11 +11,20 @@ typedef struct DetectBox {
         this->confidence = confidence;
         this->classID = classID;
         this->trackID = trackID;
+        this->dis=dis;
+        this->pixel_x=(x2+x1)/2;
+        this->pixel_y=(y2+y1)/2;
+        this->angle=angle;
     }
     float x1, y1, x2, y2;
     float confidence;
     float classID;
     float trackID;
+    float angle;
+    float dis;
+    float *pdc;
+    float pixel_x;
+    float pixel_y;
 } DetectBox;
 
 #endif // DATATYPE_H

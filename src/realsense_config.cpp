@@ -124,7 +124,7 @@ float measure_distance(cv::Mat &color,cv::Mat depth,DetectBox box,cv::Size range
     //获得深度像素与现实单位比例
     float depth_scale = get_depth_scale(profile.get_device());
     //定义图像中心点
-    cv::Point center(box.x1+(box.x2-box.x1)/2,box.y1+(box.y2-box.y1)/2);
+    cv::Point center(box.pixel_x,box.pixel_y);
     //定义计算距离的范围
     cv::Rect RectRange(center.x-range.width/2,center.y-range.height/2,range.width,range.height);
     //std::cout<<box.x1<<" " <<box.y1<<" "<<box.x2 <<" "<<box.y2 <<std::endl;
@@ -152,7 +152,10 @@ float measure_distance(cv::Mat &color,cv::Mat depth,DetectBox box,cv::Size range
     return effective_distance;
 }
 
-float getDistanceInMeters(DetectBox box,rs2::depth_frame alignDepthFrame){
+float getDistanceInMeters(DetectBox box,rs2::depth_frame alignDepthFrame,rs2::video_frame aligned_color_frame){
+    rs2_extrinsics  extrinsics;
+    rs2_error *error;
+    extrinsics=alignDepthFrame.get_profile().as<rs2::video_stream_profile>().get_extrinsics_to(aligned_color_frame.get_profile());
 
     float x=(box.x1+box.x2)/2,y=(box.y1+box.y2)/2;
     float pd_uv[2];

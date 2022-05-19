@@ -443,6 +443,30 @@ src/manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/manager.cpp.s
 .PHONY : src/manager.cpp.s
 
+src/objectProcess.o: src/objectProcess.cpp.o
+.PHONY : src/objectProcess.o
+
+# target to build an object file
+src/objectProcess.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/objectProcess.cpp.o
+.PHONY : src/objectProcess.cpp.o
+
+src/objectProcess.i: src/objectProcess.cpp.i
+.PHONY : src/objectProcess.i
+
+# target to preprocess a source file
+src/objectProcess.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/objectProcess.cpp.i
+.PHONY : src/objectProcess.cpp.i
+
+src/objectProcess.s: src/objectProcess.cpp.s
+.PHONY : src/objectProcess.s
+
+# target to generate assembly for a file
+src/objectProcess.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/objectProcess.cpp.s
+.PHONY : src/objectProcess.cpp.s
+
 src/realsense_config.o: src/realsense_config.cpp.o
 .PHONY : src/realsense_config.o
 
@@ -538,6 +562,9 @@ help:
 	@echo "... src/manager.o"
 	@echo "... src/manager.i"
 	@echo "... src/manager.s"
+	@echo "... src/objectProcess.o"
+	@echo "... src/objectProcess.i"
+	@echo "... src/objectProcess.s"
 	@echo "... src/realsense_config.o"
 	@echo "... src/realsense_config.i"
 	@echo "... src/realsense_config.s"

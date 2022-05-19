@@ -13,9 +13,6 @@ set(CMAKE_BUILD_TYPE Release)
 find_package(CUDA REQUIRED)
 set(CUDA_NVCC_PLAGS ${CUDA_NVCC_PLAGS};-std=c++11;-g;-G;-gencode;arch=compute_53;code=sm_53)
 
-if(WIN32)
-enable_language(CUDA)
-endif(WIN32)
 
 find_package(realsense2 REQUIRED)
 
@@ -61,5 +58,3 @@ add_executable(yolosort ${M_SRC_DIR})
 
 target_link_libraries(yolosort nvinfer cudart yolov5_trt ${realsense2_LIBRARY} -pthread)
 
-
-set(CMAKE_CXX_FLAGS "-std=c++0x")

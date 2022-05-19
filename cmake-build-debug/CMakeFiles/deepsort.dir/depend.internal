@@ -10,6 +10,11 @@ CMakeFiles/deepsort.dir/deepsort/src/deepsort.cpp.o
  ../deepsort/include/track.h
  ../deepsort/include/tracker.h
  /home/lmy/project/yolov5-deepsort-tensorrt/deepsort/src/deepsort.cpp
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvInfer.h
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvInferRuntime.h
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvInferRuntimeCommon.h
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvInferVersion.h
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvOnnxParser.h
  /usr/local/cuda/include/builtin_types.h
  /usr/local/cuda/include/crt/host_defines.h
  /usr/local/cuda/include/cuda_device_runtime_api.h
@@ -129,6 +134,11 @@ CMakeFiles/deepsort.dir/deepsort/src/featuretensor.cpp.o
  ../deepsort/include/featuretensor.h
  ../deepsort/include/model.hpp
  /home/lmy/project/yolov5-deepsort-tensorrt/deepsort/src/featuretensor.cpp
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvInfer.h
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvInferRuntime.h
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvInferRuntimeCommon.h
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvInferVersion.h
+ /home/lmy/source/TensorRT-7.1.3.4/include/NvOnnxParser.h
  /usr/local/cuda/include/builtin_types.h
  /usr/local/cuda/include/crt/host_defines.h
  /usr/local/cuda/include/cuda_device_runtime_api.h

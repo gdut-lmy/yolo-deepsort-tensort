@@ -18,6 +18,7 @@
 #include "yolov5_lib.h"
 #include "deepsort.h"
 #include "realsense_config.h"
+#include "objectProcess.h"
 #define Stride 5 //稀疏化步长
 extern rs2::pipeline_profile profile;
 extern cv::Mat depthMat, colorMat;
@@ -30,10 +31,19 @@ public:
 	// init 
 	Trtyolosort(char *yolo_engine_path,char *sort_engine_path);
 	// detect and show
-    int TrtDetect(cv::Mat &frame,float &conf_thresh,std::vector<DetectBox> &det,rs2::depth_frame aligned_depth_frame);
-	void showDetection(cv::Mat& img, std::vector<DetectBox>& boxes,rs2::depth_frame aligned_depth_frame);
-    float GetBoxDepth(DetectBox box,rs2::depth_frame alignedDepthFrame);
-    float Get_Area_Depth(DetectBox box);
+    int TrtDetect(cv::Mat &frame,float &conf_thresh,std::vector<DetectBox> &det,const rs2::depth_frame& aligned_depth_frame);
+
+    int TrtDetect(cv::Mat &frame,float &conf_thresh,std::vector<DetectBox> &det);
+
+	void showDetection(cv::Mat& img, std::vector<DetectBox>& boxes,const rs2::depth_frame& aligned_depth_frame);
+
+    static void showDetection(cv::Mat& img, std::vector<DetectBox>& boxes);
+
+    static float GetBoxDepth2(DetectBox box,const rs2::depth_frame& alignedDepthFrame);
+    static void getBoxDepthAndAngle(DetectBox &boxes,const rs2::depth_frame& alignedDepthFrame);
+
+    static float Get_Area_Depth(DetectBox box);
+    static void dealWithBox(vector<DetectBox> boxes);
 
 private:
 	char* yolo_engine_path_ = NULL;

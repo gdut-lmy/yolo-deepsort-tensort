@@ -23,7 +23,7 @@ cv::Mat align_Depth2Color(cv::Mat depth, const cv::Mat &color, rs2::pipeline_pro
 float get_depth_scale(const rs2::device& dev);
 float measure_distance(cv::Mat &color,cv::Mat depth,DetectBox box,cv::Size range,rs2::pipeline_profile profile);
 int Get_referance();
-float getDistanceInMeters(DetectBox box,rs2::depth_frame aligned_depth_frame);
+float getDistanceInMeters(DetectBox box,rs2::depth_frame aligned_depth_frame,rs2::video_frame aligned_color_frame);
 extern rs2::pipeline pipes;
 extern rs2::pipeline_profile profile;
 

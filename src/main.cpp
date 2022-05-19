@@ -7,7 +7,6 @@
 #include "realsense_config.h"
 #include "cv-helpers.hpp"
 #include <time.h>
-#include "ThreadPool1.h"
 ///define d455 depthMat and colorMat
 cv::Mat depthMat,colorMat;
 using namespace cv;
@@ -47,10 +46,13 @@ int main() {
         colorMat = frame_to_mat(aligned_color_frame);
         Mat depth_mat(Size(640, 480),CV_16U, (void *) aligned_depth_frame.get_data(), Mat::AUTO_STEP);
         depthMat = depth_mat;
+
         if (i % 3 == 0) {
             //std::cout<<"origin img size:"<<frame.cols<<" "<<frame.rows<<std::endl;
             auto start = std::chrono::system_clock::now();
             yoloSort.TrtDetect(colorMat, conf, det,aligned_depth_frame);
+            //TODO deal the box
+            //yoloSort.dealWithBox(det);
             auto end = std::chrono::system_clock::now();
             int delay_infer = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
             std::cout << "delay_infer:" << delay_infer << "ms" << std::endl;

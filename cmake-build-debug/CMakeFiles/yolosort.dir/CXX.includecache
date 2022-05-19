@@ -94,30 +94,6 @@ track.h
 model.hpp
 ../deepsort/include/model.hpp
 
-../include/SafeQueue.h
-mutex
--
-queue
--
-
-../include/ThreadPool1.h
-functional
--
-future
--
-mutex
--
-queue
--
-thread
--
-utility
--
-vector
--
-SafeQueue.h
-../include/SafeQueue.h
-
 ../include/cv-helpers.hpp
 librealsense2/rs.hpp
 -
@@ -159,6 +135,14 @@ deepsort.h
 ../include/deepsort.h
 realsense_config.h
 ../include/realsense_config.h
+objectProcess.h
+../include/objectProcess.h
+
+../include/objectProcess.h
+realsense_config.h
+-
+manager.hpp
+-
 
 ../include/realsense_config.h
 iostream
@@ -211,8 +195,16 @@ cv-helpers.hpp
 /home/lmy/project/yolov5-deepsort-tensorrt/src/cv-helpers.hpp
 time.h
 -
-ThreadPool1.h
-/home/lmy/project/yolov5-deepsort-tensorrt/src/ThreadPool1.h
+
+/home/lmy/project/yolov5-deepsort-tensorrt/src/manager.cpp
+manager.hpp
+/home/lmy/project/yolov5-deepsort-tensorrt/src/manager.hpp
+utility
+-
+
+/home/lmy/project/yolov5-deepsort-tensorrt/src/objectProcess.cpp
+objectProcess.h
+/home/lmy/project/yolov5-deepsort-tensorrt/src/objectProcess.h
 
 /home/lmy/source/TensorRT-7.1.3.4/include/NvInfer.h
 NvInferRuntime.h
