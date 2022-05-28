@@ -58,3 +58,5 @@ add_executable(yolosort ${M_SRC_DIR})
 
 target_link_libraries(yolosort nvinfer cudart yolov5_trt ${realsense2_LIBRARY} -pthread)
 
+
+

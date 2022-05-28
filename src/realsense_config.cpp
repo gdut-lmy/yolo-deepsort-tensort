@@ -35,9 +35,9 @@ int Realsense_config(){
     ///默认配置任意一个设备，若要配置指定的设备可以根据设备在设备列表里的序列号进行制定:
     ///int indx = 0; ///表示第0个设备
     ///cfg.enable_stream(RS2_STREAM_COLOR,indx, 640, 480, RS2_FORMAT_BGR8, 30);
-    cfg.enable_stream(RS2_STREAM_COLOR,640, 480, RS2_FORMAT_BGR8, 60);
+    cfg.enable_stream(RS2_STREAM_COLOR,640, 480, RS2_FORMAT_BGR8, 30);
     ///配置深度图像流：分辨率640*480，图像格式：Z16， 帧率：30帧/秒
-    cfg.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 60);
+    cfg.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
     profile =pipes.start(cfg); ///根据给定的配置启动相机管道
 
     return EXIT_SUCCESS;
