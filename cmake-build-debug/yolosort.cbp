@@ -263,10 +263,16 @@
 		<Unit filename="/home/lmy/project/yolov5-deepsort-tensorrt/src/manager.cpp">
 			<Option target="yolosort"/>
 		</Unit>
+		<Unit filename="/home/lmy/project/yolov5-deepsort-tensorrt/src/mutex.cpp">
+			<Option target="yolosort"/>
+		</Unit>
 		<Unit filename="/home/lmy/project/yolov5-deepsort-tensorrt/src/objectProcess.cpp">
 			<Option target="yolosort"/>
 		</Unit>
 		<Unit filename="/home/lmy/project/yolov5-deepsort-tensorrt/src/realsense_config.cpp">
+			<Option target="yolosort"/>
+		</Unit>
+		<Unit filename="/home/lmy/project/yolov5-deepsort-tensorrt/src/thread.cpp">
 			<Option target="yolosort"/>
 		</Unit>
 		<Unit filename="/home/lmy/project/yolov5-deepsort-tensorrt/yolo/include/yololayer.cu">

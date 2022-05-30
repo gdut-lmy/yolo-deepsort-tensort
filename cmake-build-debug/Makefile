@@ -443,6 +443,30 @@ src/manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/manager.cpp.s
 .PHONY : src/manager.cpp.s
 
+src/mutex.o: src/mutex.cpp.o
+.PHONY : src/mutex.o
+
+# target to build an object file
+src/mutex.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/mutex.cpp.o
+.PHONY : src/mutex.cpp.o
+
+src/mutex.i: src/mutex.cpp.i
+.PHONY : src/mutex.i
+
+# target to preprocess a source file
+src/mutex.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/mutex.cpp.i
+.PHONY : src/mutex.cpp.i
+
+src/mutex.s: src/mutex.cpp.s
+.PHONY : src/mutex.s
+
+# target to generate assembly for a file
+src/mutex.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/mutex.cpp.s
+.PHONY : src/mutex.cpp.s
+
 src/objectProcess.o: src/objectProcess.cpp.o
 .PHONY : src/objectProcess.o
 
@@ -490,6 +514,30 @@ src/realsense_config.s: src/realsense_config.cpp.s
 src/realsense_config.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/realsense_config.cpp.s
 .PHONY : src/realsense_config.cpp.s
+
+src/thread.o: src/thread.cpp.o
+.PHONY : src/thread.o
+
+# target to build an object file
+src/thread.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/thread.cpp.o
+.PHONY : src/thread.cpp.o
+
+src/thread.i: src/thread.cpp.i
+.PHONY : src/thread.i
+
+# target to preprocess a source file
+src/thread.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/thread.cpp.i
+.PHONY : src/thread.cpp.i
+
+src/thread.s: src/thread.cpp.s
+.PHONY : src/thread.s
+
+# target to generate assembly for a file
+src/thread.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/thread.cpp.s
+.PHONY : src/thread.cpp.s
 
 yolo/src/yolov5_lib.o: yolo/src/yolov5_lib.cpp.o
 .PHONY : yolo/src/yolov5_lib.o
@@ -562,12 +610,18 @@ help:
 	@echo "... src/manager.o"
 	@echo "... src/manager.i"
 	@echo "... src/manager.s"
+	@echo "... src/mutex.o"
+	@echo "... src/mutex.i"
+	@echo "... src/mutex.s"
 	@echo "... src/objectProcess.o"
 	@echo "... src/objectProcess.i"
 	@echo "... src/objectProcess.s"
 	@echo "... src/realsense_config.o"
 	@echo "... src/realsense_config.i"
 	@echo "... src/realsense_config.s"
+	@echo "... src/thread.o"
+	@echo "... src/thread.i"
+	@echo "... src/thread.s"
 	@echo "... yolo/src/yolov5_lib.o"
 	@echo "... yolo/src/yolov5_lib.i"
 	@echo "... yolo/src/yolov5_lib.s"

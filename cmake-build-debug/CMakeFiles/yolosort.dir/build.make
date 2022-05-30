@@ -92,9 +92,22 @@ CMakeFiles/yolosort.dir/src/manager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/yolosort.dir/src/manager.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lmy/project/yolov5-deepsort-tensorrt/src/manager.cpp -o CMakeFiles/yolosort.dir/src/manager.cpp.s
 
+CMakeFiles/yolosort.dir/src/mutex.cpp.o: CMakeFiles/yolosort.dir/flags.make
+CMakeFiles/yolosort.dir/src/mutex.cpp.o: ../src/mutex.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/yolosort.dir/src/mutex.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/yolosort.dir/src/mutex.cpp.o -c /home/lmy/project/yolov5-deepsort-tensorrt/src/mutex.cpp
+
+CMakeFiles/yolosort.dir/src/mutex.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/yolosort.dir/src/mutex.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lmy/project/yolov5-deepsort-tensorrt/src/mutex.cpp > CMakeFiles/yolosort.dir/src/mutex.cpp.i
+
+CMakeFiles/yolosort.dir/src/mutex.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/yolosort.dir/src/mutex.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lmy/project/yolov5-deepsort-tensorrt/src/mutex.cpp -o CMakeFiles/yolosort.dir/src/mutex.cpp.s
+
 CMakeFiles/yolosort.dir/src/objectProcess.cpp.o: CMakeFiles/yolosort.dir/flags.make
 CMakeFiles/yolosort.dir/src/objectProcess.cpp.o: ../src/objectProcess.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/yolosort.dir/src/objectProcess.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/yolosort.dir/src/objectProcess.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/yolosort.dir/src/objectProcess.cpp.o -c /home/lmy/project/yolov5-deepsort-tensorrt/src/objectProcess.cpp
 
 CMakeFiles/yolosort.dir/src/objectProcess.cpp.i: cmake_force
@@ -107,7 +120,7 @@ CMakeFiles/yolosort.dir/src/objectProcess.cpp.s: cmake_force
 
 CMakeFiles/yolosort.dir/src/realsense_config.cpp.o: CMakeFiles/yolosort.dir/flags.make
 CMakeFiles/yolosort.dir/src/realsense_config.cpp.o: ../src/realsense_config.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/yolosort.dir/src/realsense_config.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/yolosort.dir/src/realsense_config.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/yolosort.dir/src/realsense_config.cpp.o -c /home/lmy/project/yolov5-deepsort-tensorrt/src/realsense_config.cpp
 
 CMakeFiles/yolosort.dir/src/realsense_config.cpp.i: cmake_force
@@ -118,20 +131,37 @@ CMakeFiles/yolosort.dir/src/realsense_config.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/yolosort.dir/src/realsense_config.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lmy/project/yolov5-deepsort-tensorrt/src/realsense_config.cpp -o CMakeFiles/yolosort.dir/src/realsense_config.cpp.s
 
+CMakeFiles/yolosort.dir/src/thread.cpp.o: CMakeFiles/yolosort.dir/flags.make
+CMakeFiles/yolosort.dir/src/thread.cpp.o: ../src/thread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/yolosort.dir/src/thread.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/yolosort.dir/src/thread.cpp.o -c /home/lmy/project/yolov5-deepsort-tensorrt/src/thread.cpp
+
+CMakeFiles/yolosort.dir/src/thread.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/yolosort.dir/src/thread.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lmy/project/yolov5-deepsort-tensorrt/src/thread.cpp > CMakeFiles/yolosort.dir/src/thread.cpp.i
+
+CMakeFiles/yolosort.dir/src/thread.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/yolosort.dir/src/thread.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lmy/project/yolov5-deepsort-tensorrt/src/thread.cpp -o CMakeFiles/yolosort.dir/src/thread.cpp.s
+
 # Object files for target yolosort
 yolosort_OBJECTS = \
 "CMakeFiles/yolosort.dir/src/main.cpp.o" \
 "CMakeFiles/yolosort.dir/src/manager.cpp.o" \
+"CMakeFiles/yolosort.dir/src/mutex.cpp.o" \
 "CMakeFiles/yolosort.dir/src/objectProcess.cpp.o" \
-"CMakeFiles/yolosort.dir/src/realsense_config.cpp.o"
+"CMakeFiles/yolosort.dir/src/realsense_config.cpp.o" \
+"CMakeFiles/yolosort.dir/src/thread.cpp.o"
 
 # External object files for target yolosort
 yolosort_EXTERNAL_OBJECTS =
 
 yolosort: CMakeFiles/yolosort.dir/src/main.cpp.o
 yolosort: CMakeFiles/yolosort.dir/src/manager.cpp.o
+yolosort: CMakeFiles/yolosort.dir/src/mutex.cpp.o
 yolosort: CMakeFiles/yolosort.dir/src/objectProcess.cpp.o
 yolosort: CMakeFiles/yolosort.dir/src/realsense_config.cpp.o
+yolosort: CMakeFiles/yolosort.dir/src/thread.cpp.o
 yolosort: CMakeFiles/yolosort.dir/build.make
 yolosort: libyolov5_trt.so
 yolosort: /usr/lib/x86_64-linux-gnu/librealsense2.so.2.50.0
@@ -152,7 +182,7 @@ yolosort: /usr/local/lib/libopencv_imgcodecs.so.4.5.3
 yolosort: /usr/local/lib/libopencv_imgproc.so.4.5.3
 yolosort: /usr/local/lib/libopencv_core.so.4.5.3
 yolosort: CMakeFiles/yolosort.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable yolosort"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable yolosort"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/yolosort.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

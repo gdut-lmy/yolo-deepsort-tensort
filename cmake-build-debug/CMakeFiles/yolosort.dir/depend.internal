@@ -264,6 +264,10 @@ CMakeFiles/yolosort.dir/src/manager.cpp.o
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp
  /usr/local/include/opencv4/opencv2/video/tracking.hpp
  /usr/local/include/opencv4/opencv2/videoio.hpp
+CMakeFiles/yolosort.dir/src/mutex.cpp.o
+ ../include/mutex.h
+ ../include/noncopyable.h
+ /home/lmy/project/yolov5-deepsort-tensorrt/src/mutex.cpp
 CMakeFiles/yolosort.dir/src/objectProcess.cpp.o
  ../deepsort/include/datatype.h
  ../deepsort/include/deepsort.h
@@ -522,3 +526,8 @@ CMakeFiles/yolosort.dir/src/realsense_config.cpp.o
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp
  /usr/local/include/opencv4/opencv2/video/tracking.hpp
  /usr/local/include/opencv4/opencv2/videoio.hpp
+CMakeFiles/yolosort.dir/src/thread.cpp.o
+ ../include/mutex.h
+ ../include/noncopyable.h
+ ../include/thread.h
+ /home/lmy/project/yolov5-deepsort-tensorrt/src/thread.cpp
