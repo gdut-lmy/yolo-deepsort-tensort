@@ -6,14 +6,15 @@
 #include "realsense_config.h"
 #include "cv-helpers.hpp"
 #include <ctime>
-#include "pthread.h"
 #include "unistd.h"
+#include "thread.h"
+#include <memory>
 
 ///define d455 depthMat and colorMat
 cv::Mat depthMat, colorMat;
 using namespace cv;
 
-void *yolo(void *para) {
+void yolo() {
 
     //char *yolo_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/float1.engine";
     char *yolo_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/yolov5s.engine";
@@ -66,12 +67,12 @@ int main() {
 
 
 
+    my::Thread::ptr th(std::make_shared<my::Thread>(&yolo,"yolo"));
+
+    th->join();
 
 
-    pthread_t m_yolo;
-    pthread_create(&m_yolo, nullptr, yolo, nullptr);
 
-    pthread_join(m_yolo, nullptr);
 
     return 0;
 }

@@ -12,8 +12,11 @@ CMakeFiles/yolosort.dir/src/main.cpp.o
  ../deepsort/include/tracker.h
  ../include/cv-helpers.hpp
  ../include/manager.hpp
+ ../include/mutex.h
+ ../include/noncopyable.h
  ../include/objectProcess.h
  ../include/realsense_config.h
+ ../include/thread.h
  ../yolo/include/yolov5_lib.h
  /home/lmy/project/yolov5-deepsort-tensorrt/src/main.cpp
  /home/lmy/source/TensorRT-7.1.3.4/include/NvInfer.h
@@ -143,6 +146,8 @@ CMakeFiles/yolosort.dir/src/manager.cpp.o
  ../deepsort/include/track.h
  ../deepsort/include/tracker.h
  ../include/manager.hpp
+ ../include/mutex.h
+ ../include/noncopyable.h
  ../include/objectProcess.h
  ../include/realsense_config.h
  ../yolo/include/yolov5_lib.h
@@ -278,6 +283,8 @@ CMakeFiles/yolosort.dir/src/objectProcess.cpp.o
  ../deepsort/include/track.h
  ../deepsort/include/tracker.h
  ../include/manager.hpp
+ ../include/mutex.h
+ ../include/noncopyable.h
  ../include/objectProcess.h
  ../include/realsense_config.h
  ../yolo/include/yolov5_lib.h

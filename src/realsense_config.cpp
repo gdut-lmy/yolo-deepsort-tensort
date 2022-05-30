@@ -119,7 +119,7 @@ cv::Mat align_Depth2Color(cv::Mat depth, const cv::Mat &color, rs2::pipeline_pro
 }
 
 
-float measure_distance(cv::Mat &color,cv::Mat depth,DetectBox box,cv::Size range,rs2::pipeline_profile profile)//声明profile
+float measure_distance(cv::Mat depth,DetectBox box,cv::Size range,rs2::pipeline_profile profile)//声明profile
 {
     //获得深度像素与现实单位比例
     float depth_scale = get_depth_scale(profile.get_device());

@@ -8,10 +8,11 @@
 #include "deepsort.h"
 #include "logging.h"
 #include <ctime>
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include "time.h"
+#include <cstdio>
+#include <cstdlib>
+#include <cassert>
+#include <ctime>
+#include "mutex.h"
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -40,12 +41,14 @@ public:
     static void showDetection(cv::Mat& img, std::vector<DetectBox>& boxes);
 
     static float GetBoxDepth2(DetectBox box,const rs2::depth_frame& alignedDepthFrame);
-    static void getBoxDepthAndAngle(DetectBox &boxes,const rs2::depth_frame& alignedDepthFrame);
+    void getBoxDepthAndAngle(DetectBox &boxes,const rs2::depth_frame& alignedDepthFrame);
 
     static float Get_Area_Depth(DetectBox box);
     static void dealWithBox(vector<DetectBox> boxes);
 
 private:
+
+    my::Mutex m_mutex;
 	char* yolo_engine_path_ = NULL;
 	char* sort_engine_path_ = NULL;
     void *trt_engine = NULL;

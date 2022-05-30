@@ -15,12 +15,6 @@
 
 namespace my {
 
-/*
-    pid_t GetThreadId() {
-
-        return syscall(SYS_gettid);
-    }
-*/
 
 /**
  * @brief 线程类
@@ -29,6 +23,7 @@ namespace my {
     public:
         /// 线程智能指针类型
         typedef std::shared_ptr<Thread> ptr;
+        typedef std::unique_ptr<Thread> uptr;
 
         /**
          * @brief 构造函数

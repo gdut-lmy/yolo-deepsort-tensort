@@ -17,13 +17,15 @@ Trtyolosort::Trtyolosort(char *yolo_engine_path, char *sort_engine_path) {
 
 void Trtyolosort::showDetection(cv::Mat &img, std::vector<DetectBox> &boxes, const rs2::depth_frame& aligned_depth_frame) {
     cv::Mat temp = img.clone();
-    float *res;
+    //float *res;
     for (auto box: boxes) {
+        m_mutex.lock();
+        getBoxDepthAndAngle(box, aligned_depth_frame);
+        m_mutex.unlock();
         cv::Point lt(box.x1, box.y1);
         cv::Point br(box.x2, box.y2);
         cout << "Track ID" << box.trackID << endl;
         //float dis= getDistanceInMeters(box,aligned_depth_frame);
-        getBoxDepthAndAngle(box, aligned_depth_frame);
         //float dis= GetBoxDepth2(box,aligned_depth_frame);
         cv::rectangle(temp, lt, br, cv::Scalar(255, 0, 0), 1);
         //std::string lbl = cv::format("ID:%d_C:%d_CONF:%.2f", (int)box.trackID, (int)box.classID, box.confidence);
@@ -32,8 +34,10 @@ void Trtyolosort::showDetection(cv::Mat &img, std::vector<DetectBox> &boxes, con
         //std::string lbl = cv::format("ID:%d_x:%f_y:%f",(int)box.trackID,(box.x1+box.x2)/2,(box.y1+box.y2)/2);
         cv::putText(temp, lbl, lt, cv::FONT_HERSHEY_COMPLEX, 0.5, cv::Scalar(0, 255, 0));
     }
+    m_mutex.lock();
     cv::imshow("img", temp);
     cv::waitKey(1);
+    m_mutex.unlock();
 }
 
 
@@ -79,7 +83,7 @@ float Trtyolosort::Get_Area_Depth(DetectBox box) {
 
 float Trtyolosort::GetBoxDepth2(DetectBox box, const rs2::depth_frame& alignedDepthFrame) {
     //Mat result = align_Depth2Color(depthMat,colorMat,profile);//调用对齐函数
-    float dis = measure_distance(colorMat, depthMat, box, cv::Size(5, 5), profile);
+    float dis = measure_distance(depthMat, box, cv::Size(5, 5), profile);
     float x = (box.x1 + box.x2) / 2, y = (box.y1 + box.y2) / 2;
     float pd_uv[2];
     float angle;
@@ -99,7 +103,7 @@ float Trtyolosort::GetBoxDepth2(DetectBox box, const rs2::depth_frame& alignedDe
 
 int Trtyolosort::TrtDetect(cv::Mat &frame, float &conf_thresh, std::vector<DetectBox> &det,const rs2::depth_frame& aligned_depth_frame) {
     // yolo detect
-    auto ret = yolov5_trt_detect(trt_engine, frame, conf_thresh, det);
+    yolov5_trt_detect(trt_engine, frame, conf_thresh, det);
     DS->sort(frame, det);
     showDetection(frame, det, aligned_depth_frame);
     return 1;
@@ -118,10 +122,8 @@ int Trtyolosort::TrtDetect(cv::Mat &frame, float &conf_thresh, std::vector<Detec
 void Trtyolosort::getBoxDepthAndAngle(DetectBox &box, const rs2::depth_frame& alignedDepthFrame) {
 
     float Pdc3[3];
-
-    box.dis = measure_distance(colorMat, depthMat, box, cv::Size(5, 5), profile);
-
     float pd_uv[2];
+    box.dis = measure_distance(depthMat, box, cv::Size(20, 20), profile);
 
     pd_uv[0] = box.pixel_x, pd_uv[1] = box.pixel_y;
     const auto intrinDepth = alignedDepthFrame.get_profile().as<rs2::video_stream_profile>().get_intrinsics();
