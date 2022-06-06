@@ -111,7 +111,7 @@ CMakeFiles/deepsort.dir/clean:
 CMakeFiles/yolov5_trt.dir/all: CMakeFiles/deepsort.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolov5_trt.dir/build.make CMakeFiles/yolov5_trt.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolov5_trt.dir/build.make CMakeFiles/yolov5_trt.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=19,20,21 "Built target yolov5_trt"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=18,19,20 "Built target yolov5_trt"
 .PHONY : CMakeFiles/yolov5_trt.dir/all
 
 # Build rule for subdir invocation for target.
@@ -138,12 +138,12 @@ CMakeFiles/yolosort.dir/all: CMakeFiles/deepsort.dir/all
 CMakeFiles/yolosort.dir/all: CMakeFiles/yolov5_trt.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=12,13,14,15,16,17,18 "Built target yolosort"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles --progress-num=12,13,14,15,16,17 "Built target yolosort"
 .PHONY : CMakeFiles/yolosort.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/yolosort.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles 21
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles 20
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/yolosort.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/yolosort.dir/rule

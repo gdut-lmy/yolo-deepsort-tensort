@@ -94,6 +94,14 @@ track.h
 model.hpp
 ../deepsort/include/model.hpp
 
+../include/cv-helpers.hpp
+librealsense2/rs.hpp
+-
+opencv2/opencv.hpp
+-
+exception
+-
+
 ../include/manager.hpp
 iostream
 -
@@ -117,8 +125,6 @@ cassert
 -
 ctime
 -
-mutex.h
-../include/mutex.h
 opencv2/opencv.hpp
 -
 opencv2/highgui/highgui.hpp
@@ -131,26 +137,8 @@ realsense_config.h
 ../include/realsense_config.h
 objectProcess.h
 ../include/objectProcess.h
-
-../include/mutex.h
-thread
+thread.h
 -
-functional
--
-memory
--
-pthread.h
--
-semaphore.h
--
-stdint.h
--
-atomic
--
-list
--
-noncopyable.h
-../include/noncopyable.h
 
 ../include/noncopyable.h
 
@@ -169,7 +157,7 @@ opencv2/dnn.hpp
 -
 fstream
 -
-math.h
+cmath
 -
 string
 -
@@ -188,14 +176,52 @@ exception
 opencv2/opencv.hpp
 -
 
+../include/thread.h
+functional
+-
+memory
+-
+pthread.h
+-
+semaphore.h
+-
+cstdint
+-
+sys/types.h
+-
+unistd.h
+-
+sys/syscall.h
+-
+noncopyable.h
+../include/noncopyable.h
+
 ../yolo/include/yolov5_lib.h
 deepsort.h
 ../yolo/include/deepsort.h
 
-/home/lmy/project/yolov5-deepsort-tensorrt/src/manager.cpp
+/home/lmy/project/yolov5-deepsort-tensorrt/src/main.cpp
+iostream
+-
 manager.hpp
 /home/lmy/project/yolov5-deepsort-tensorrt/src/manager.hpp
-utility
+opencv2/highgui/highgui.hpp
+-
+vector
+-
+chrono
+-
+realsense_config.h
+/home/lmy/project/yolov5-deepsort-tensorrt/src/realsense_config.h
+cv-helpers.hpp
+/home/lmy/project/yolov5-deepsort-tensorrt/src/cv-helpers.hpp
+ctime
+-
+unistd.h
+/home/lmy/project/yolov5-deepsort-tensorrt/src/unistd.h
+thread.h
+/home/lmy/project/yolov5-deepsort-tensorrt/src/thread.h
+memory
 -
 
 /home/lmy/source/TensorRT-7.1.3.4/include/NvInfer.h

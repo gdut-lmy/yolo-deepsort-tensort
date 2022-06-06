@@ -10,7 +10,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/lmy/project/yolov5-deepsort-tensorrt/src/main.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/main.cpp.o"
   "/home/lmy/project/yolov5-deepsort-tensorrt/src/manager.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/manager.cpp.o"
-  "/home/lmy/project/yolov5-deepsort-tensorrt/src/mutex.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/mutex.cpp.o"
   "/home/lmy/project/yolov5-deepsort-tensorrt/src/objectProcess.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/objectProcess.cpp.o"
   "/home/lmy/project/yolov5-deepsort-tensorrt/src/realsense_config.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/realsense_config.cpp.o"
   "/home/lmy/project/yolov5-deepsort-tensorrt/src/thread.cpp" "/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir/src/thread.cpp.o"

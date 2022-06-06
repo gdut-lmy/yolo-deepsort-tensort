@@ -12,17 +12,20 @@
 #include <cstdlib>
 #include <cassert>
 #include <ctime>
-#include "mutex.h"
-
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "yolov5_lib.h"
 #include "deepsort.h"
 #include "realsense_config.h"
 #include "objectProcess.h"
+#include <thread.h>
+
 #define Stride 5 //稀疏化步长
 extern rs2::pipeline_profile profile;
-extern cv::Mat depthMat, colorMat;
+extern cv::Mat depthMat, coloreMat;
+
+
+
 using std::vector;
 using namespace cv;
 //static Logger gLogger;
@@ -48,7 +51,6 @@ public:
 
 private:
 
-    my::Mutex m_mutex;
 	char* yolo_engine_path_ = NULL;
 	char* sort_engine_path_ = NULL;
     void *trt_engine = NULL;

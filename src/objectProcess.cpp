@@ -8,9 +8,9 @@
 void getObjectAngle(DetectBox &box) {
 
     if (isnan(box.dis) || box.dis < 0.4 || box.dis > 8) {
-         getObjectAngleFromPixel(box);
+        getObjectAngleFromPixel(box);
     } else {
-         getObjectAngleFrom3D(box);
+        getObjectAngleFrom3D(box);
     }
 
 }
@@ -38,10 +38,23 @@ void dealWithDistance(float &dis, int x, int y, float angle) {
         dis = 0;//adjust angle dont move
     } else if (dis > 8) {
         dis = 4;
-    } else if(isnan(dis)||dis<0.4){
-        dis=0;
+    } else if (isnan(dis) || dis < 0.4) {
+        dis = 0;
     }
 }
 
 
+bool isValidBox(DetectBox box) {
 
+    if (box.dis < 0.4)
+        return false;
+    else
+        return true;
+
+}
+
+void trackBox(DetectBox box) {
+
+
+    cout << "trackBox ----------------------:" << box.trackID << endl;
+}

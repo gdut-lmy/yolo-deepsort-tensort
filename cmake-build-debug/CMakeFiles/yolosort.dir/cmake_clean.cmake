@@ -1,7 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/yolosort.dir/src/main.cpp.o"
   "CMakeFiles/yolosort.dir/src/manager.cpp.o"
-  "CMakeFiles/yolosort.dir/src/mutex.cpp.o"
   "CMakeFiles/yolosort.dir/src/objectProcess.cpp.o"
   "CMakeFiles/yolosort.dir/src/realsense_config.cpp.o"
   "CMakeFiles/yolosort.dir/src/thread.cpp.o"

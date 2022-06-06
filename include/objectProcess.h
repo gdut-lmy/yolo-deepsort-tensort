@@ -15,6 +15,9 @@ void dealWithDistance(float &dis,int x,int y,float angle);
 void getObjectAngleFromPixel(DetectBox &box);
 void getObjectAngle(DetectBox &box);
 
+bool isValidBox(DetectBox box);
+
+void trackBox(DetectBox box);
 
 /// object in right picture the angle is +
 void getObjectAngleFrom3D(DetectBox &box);

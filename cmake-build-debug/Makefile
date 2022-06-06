@@ -443,30 +443,6 @@ src/manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/manager.cpp.s
 .PHONY : src/manager.cpp.s
 
-src/mutex.o: src/mutex.cpp.o
-.PHONY : src/mutex.o
-
-# target to build an object file
-src/mutex.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/mutex.cpp.o
-.PHONY : src/mutex.cpp.o
-
-src/mutex.i: src/mutex.cpp.i
-.PHONY : src/mutex.i
-
-# target to preprocess a source file
-src/mutex.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/mutex.cpp.i
-.PHONY : src/mutex.cpp.i
-
-src/mutex.s: src/mutex.cpp.s
-.PHONY : src/mutex.s
-
-# target to generate assembly for a file
-src/mutex.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/yolosort.dir/build.make CMakeFiles/yolosort.dir/src/mutex.cpp.s
-.PHONY : src/mutex.cpp.s
-
 src/objectProcess.o: src/objectProcess.cpp.o
 .PHONY : src/objectProcess.o
 
@@ -610,9 +586,6 @@ help:
 	@echo "... src/manager.o"
 	@echo "... src/manager.i"
 	@echo "... src/manager.s"
-	@echo "... src/mutex.o"
-	@echo "... src/mutex.i"
-	@echo "... src/mutex.s"
 	@echo "... src/objectProcess.o"
 	@echo "... src/objectProcess.i"
 	@echo "... src/objectProcess.s"

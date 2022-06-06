@@ -3,6 +3,7 @@
 #include <utility>
 
 using std::vector;
+my::Mutex yoloMutex;
 using namespace cv;
 static Logger gLogger;
 
@@ -19,12 +20,13 @@ void Trtyolosort::showDetection(cv::Mat &img, std::vector<DetectBox> &boxes, con
     cv::Mat temp = img.clone();
     //float *res;
     for (auto box: boxes) {
-        m_mutex.lock();
+
+        yoloMutex.lock();
         getBoxDepthAndAngle(box, aligned_depth_frame);
-        m_mutex.unlock();
+        yoloMutex.unlock();
         cv::Point lt(box.x1, box.y1);
         cv::Point br(box.x2, box.y2);
-        cout << "Track ID" << box.trackID << endl;
+        //cout << "Track ID" << box.trackID << endl;
         //float dis= getDistanceInMeters(box,aligned_depth_frame);
         //float dis= GetBoxDepth2(box,aligned_depth_frame);
         cv::rectangle(temp, lt, br, cv::Scalar(255, 0, 0), 1);
@@ -34,10 +36,10 @@ void Trtyolosort::showDetection(cv::Mat &img, std::vector<DetectBox> &boxes, con
         //std::string lbl = cv::format("ID:%d_x:%f_y:%f",(int)box.trackID,(box.x1+box.x2)/2,(box.y1+box.y2)/2);
         cv::putText(temp, lbl, lt, cv::FONT_HERSHEY_COMPLEX, 0.5, cv::Scalar(0, 255, 0));
     }
-    m_mutex.lock();
+
     cv::imshow("img", temp);
     cv::waitKey(1);
-    m_mutex.unlock();
+
 }
 
 
@@ -123,6 +125,7 @@ void Trtyolosort::getBoxDepthAndAngle(DetectBox &box, const rs2::depth_frame& al
 
     float Pdc3[3];
     float pd_uv[2];
+
     box.dis = measure_distance(depthMat, box, cv::Size(20, 20), profile);
 
     pd_uv[0] = box.pixel_x, pd_uv[1] = box.pixel_y;
