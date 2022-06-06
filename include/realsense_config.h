@@ -26,7 +26,6 @@ int Get_referance();
 float getDistanceInMeters(DetectBox box,rs2::depth_frame aligned_depth_frame,rs2::video_frame aligned_color_frame);
 extern rs2::pipeline pipes;
 extern rs2::pipeline_profile profile;
-extern rs2::frame aligned_depth_frame;
 
 
 #endif //YOLOSORT_REALSENSE_CONFIG_H

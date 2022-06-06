@@ -10,6 +10,8 @@ CMakeFiles/yolov5_trt.dir/yolo/src/yolov5_lib.cpp.o: \
  ../deepsort/include/model.hpp \
  ../deepsort/include/track.h \
  ../deepsort/include/tracker.h \
+ ../include/noncopyable.h \
+ ../include/thread.h \
  ../yolo/include/common.hpp \
  ../yolo/include/cuda_utils.h \
  ../yolo/include/macros.h \

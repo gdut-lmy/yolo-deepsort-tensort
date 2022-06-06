@@ -14,37 +14,8 @@
 cv::Mat depthMat, colorMat;
 std::vector<DetectBox> det;
 
-my::RWLock frameLock;
 using namespace cv;
 
-
-void getFrame(){
-
-    ///realsense init
-    Realsense_config();
-    rs2_stream align_to = RS2_STREAM_COLOR;
-    rs2::align align(align_to);
-
-    while (cv::waitKey(1) != 27){
-
-        my::WriteScopedLock frame(&frameLock);
-
-        auto data = pipes.wait_for_frames();
-        auto processed = align.process(data);
-        auto aligned_color_frame = processed.get_color_frame();
-        aligned_depth_frame = processed.get_depth_frame();//.apply_filter(color_map)
-
-
-        ///frame to mat
-        colorMat = frame_to_mat(aligned_color_frame);
-        Mat depth_mat(Size(640, 480), CV_16U, (void *) aligned_depth_frame.get_data(), Mat::AUTO_STEP);
-        depthMat = depth_mat;
-
-        usleep(1000);
-    }
-    pipes.stop();
-
-}
 
 void yolo() {
 
@@ -55,11 +26,26 @@ void yolo() {
     ///set conf
     float conf = 0.4;
 
+
+    ///realsense init
+    Realsense_config();
+    rs2_stream align_to = RS2_STREAM_COLOR;
+    rs2::align align(align_to);
+
     Trtyolosort yoloSort(yolo_engine, sort_engine);
     auto start_draw_time = std::chrono::system_clock::now();
     while (cv::waitKey(1) != 27) {
 
-        my::ReadScopedLock yolo(&frameLock);
+        auto data = pipes.wait_for_frames();
+        auto processed = align.process(data);
+        auto aligned_color_frame = processed.get_color_frame();
+        auto aligned_depth_frame = processed.get_depth_frame();//.apply_filter(color_map)
+
+        ///frame to mat
+        colorMat = frame_to_mat(aligned_color_frame);
+        Mat depth_mat(Size(640, 480), CV_16U, (void *) aligned_depth_frame.get_data(), Mat::AUTO_STEP);
+        depthMat = depth_mat;
+
         ///detect and test delay
         auto start = std::chrono::system_clock::now();
         yoloSort.TrtDetect(colorMat, conf, det, aligned_depth_frame);
@@ -71,6 +57,7 @@ void yolo() {
         std::cout << "delay_infer:" << delay_infer << "ms" << std::endl;
         usleep(10000);
     }
+    pipes.stop();
 }
 
 
@@ -104,12 +91,10 @@ void dealWithBox() {
 
 int main() {
 
-    my::Thread::ptr th0(std::make_shared<my::Thread>(&getFrame, "getFrame"));
     my::Thread::ptr th1(std::make_shared<my::Thread>(&yolo, "yolo"));
     my::Thread::ptr th2(std::make_shared<my::Thread>(&dealWithBox, "box"));
 
 
-    th0->join();
     th1->join();
     th2->join();
 

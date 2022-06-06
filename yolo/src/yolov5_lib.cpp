@@ -9,6 +9,7 @@
 #include "cuda_utils.h"
 #include "utils.h"
 #include "datatype.h"
+#include "thread.h"
 #define USE_FP16  // comment out this if want to use FP32
 #define DEVICE 0  // GPU id
 #define NMS_THRESH 0.4
@@ -16,6 +17,7 @@
 #define BATCH_SIZE 1
  
 // stuff we know about the network and the input/output blobs
+my::RWLock rwYoloLock;
 static const int INPUT_H = Yolo::INPUT_H;
 static const int INPUT_W = Yolo::INPUT_W;
 static const int CLASS_NUM = Yolo::CLASS_NUM;

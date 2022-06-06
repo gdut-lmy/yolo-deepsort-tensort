@@ -16,7 +16,9 @@ Trtyolosort::Trtyolosort(char *yolo_engine_path, char *sort_engine_path) {
 
 }
 
-void Trtyolosort::showDetection(cv::Mat &img, std::vector<DetectBox> &boxes, const rs2::depth_frame& aligned_depth_frame) {
+void
+Trtyolosort::showDetection(cv::Mat &img, std::vector<DetectBox> &boxes, const rs2::depth_frame &aligned_depth_frame) {
+
     cv::Mat temp = img.clone();
     //float *res;
     for (auto box: boxes) {
@@ -24,6 +26,7 @@ void Trtyolosort::showDetection(cv::Mat &img, std::vector<DetectBox> &boxes, con
         yoloMutex.lock();
         getBoxDepthAndAngle(box, aligned_depth_frame);
         yoloMutex.unlock();
+
         cv::Point lt(box.x1, box.y1);
         cv::Point br(box.x2, box.y2);
         //cout << "Track ID" << box.trackID << endl;
@@ -83,7 +86,7 @@ float Trtyolosort::Get_Area_Depth(DetectBox box) {
 }
 
 
-float Trtyolosort::GetBoxDepth2(DetectBox box, const rs2::depth_frame& alignedDepthFrame) {
+float Trtyolosort::GetBoxDepth2(DetectBox box, const rs2::depth_frame &alignedDepthFrame) {
     //Mat result = align_Depth2Color(depthMat,colorMat,profile);//调用对齐函数
     float dis = measure_distance(depthMat, box, cv::Size(5, 5), profile);
     float x = (box.x1 + box.x2) / 2, y = (box.y1 + box.y2) / 2;
@@ -103,7 +106,10 @@ float Trtyolosort::GetBoxDepth2(DetectBox box, const rs2::depth_frame& alignedDe
 }
 
 
-int Trtyolosort::TrtDetect(cv::Mat &frame, float &conf_thresh, std::vector<DetectBox> &det,const rs2::depth_frame& aligned_depth_frame) {
+int Trtyolosort::TrtDetect(cv::Mat &frame, float &conf_thresh, std::vector<DetectBox> &det,
+                           const rs2::depth_frame &aligned_depth_frame) {
+
+
     // yolo detect
     yolov5_trt_detect(trt_engine, frame, conf_thresh, det);
     DS->sort(frame, det);
@@ -121,25 +127,26 @@ int Trtyolosort::TrtDetect(cv::Mat &frame, float &conf_thresh, std::vector<Detec
     return 1;
 }
 
-void Trtyolosort::getBoxDepthAndAngle(DetectBox &box, const rs2::depth_frame& alignedDepthFrame) {
+void Trtyolosort::getBoxDepthAndAngle(DetectBox &box, const rs2::depth_frame &alignedDepthFrame) {
 
     float Pdc3[3];
     float pd_uv[2];
 
-    box.dis = measure_distance(depthMat, box, cv::Size(20, 20), profile);
+    box.dis = measure_distance(depthMat, box, cv::Size((int) (box.x2 - box.x1) / 2, (int) (box.y2 - box.y1) / 2),
+                               profile);
 
     pd_uv[0] = box.pixel_x, pd_uv[1] = box.pixel_y;
     const auto intrinDepth = alignedDepthFrame.get_profile().as<rs2::video_stream_profile>().get_intrinsics();
     //float  pixel_distance_in_meters = alignedDepthFrame.get_distance((int)x,(int)y);
     rs2_deproject_pixel_to_point(Pdc3, &intrinDepth, pd_uv, box.dis);
 
-    box.pdc=Pdc3;
+    box.pdc = Pdc3;
     getObjectAngle(box);
 
 
-    cout << "X Y Z : " << Pdc3[0] << " " << Pdc3[1] << " " << Pdc3[2] << endl;
+   // cout << "X Y Z : " << Pdc3[0] << " " << Pdc3[1] << " " << Pdc3[2] << endl;
     //cout<<"O DIS : "<<sqrt(pow(Pdc3[0],2)+pow(Pdc3[1],2) +pow(Pdc3[2],2))<< endl;
-    cout << "Dis : " << box.dis << endl;
+    //cout << "Dis : " << box.dis << endl;
 }
 
 
@@ -148,9 +155,9 @@ void Trtyolosort::dealWithBox(vector<DetectBox> boxes) {
         cout << "no object found" << endl;
     } else {
         for (auto box: boxes) {
-                if(box.confidence>0.6){
-                    getObjectAngle(box);
-                }
+            if (box.confidence > 0.6) {
+                getObjectAngle(box);
+            }
 
         }
 

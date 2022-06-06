@@ -6,7 +6,6 @@
 
 rs2::pipeline pipes;///生成Realsense管道，用来封装实际的相机设备
 rs2::stream_profile dprofile;
-rs2::frame aligned_depth_frame;
 rs2::pipeline_profile profile;
 rs2::stream_profile cprofile;
 Eigen::Matrix<float,3,3> MTR;//相机坐标旋转矩阵
