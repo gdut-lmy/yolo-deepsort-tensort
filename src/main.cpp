@@ -3,18 +3,39 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <vector>
 #include <chrono>
-#include "realsense_config.h"
-#include "cv-helpers.hpp"
-#include <ctime>
 #include "unistd.h"
-#include "thread.h"
-#include <memory>
+#include <threadPool.h>
+#include <RealSenseD435.h>
 
 ///define d455 depthMat and colorMat
 cv::Mat depthMat, colorMat;
+rs2::frame aligned_depth_frame;
+std::mutex main_mutex, main2_mutex;
+std::condition_variable c_v;
 std::vector<DetectBox> det;
 
 using namespace cv;
+
+
+void realsense() {
+
+    RealSenseD435 rs;
+    rs.colorInit(COLOR_BGR8_640x480_30Hz);
+    rs.depthInit(DEPTH_Z16_640x480_30HZ);
+    rs.start();
+    cout << "******realsense init*****" << endl;
+    while (cv::waitKey(1) != 27) {
+
+        std::unique_lock<std::mutex> lk(main_mutex);
+        rs.updateFrame();
+        rs.updateColor();
+        rs.updateDepth(DEPTH_ALIGN_TO_COLOR);
+        rs.get_colorImage(colorMat);
+        rs.get_depth_Mat_8UC1(depthMat);
+        aligned_depth_frame = rs.depth_frames;
+    }
+
+}
 
 
 void yolo() {
@@ -27,37 +48,16 @@ void yolo() {
     float conf = 0.4;
 
 
-    ///realsense init
-    Realsense_config();
-    rs2_stream align_to = RS2_STREAM_COLOR;
-    rs2::align align(align_to);
-
     Trtyolosort yoloSort(yolo_engine, sort_engine);
-    auto start_draw_time = std::chrono::system_clock::now();
+
     while (cv::waitKey(1) != 27) {
 
-        auto data = pipes.wait_for_frames();
-        auto processed = align.process(data);
-        auto aligned_color_frame = processed.get_color_frame();
-        auto aligned_depth_frame = processed.get_depth_frame();//.apply_filter(color_map)
 
-        ///frame to mat
-        colorMat = frame_to_mat(aligned_color_frame);
-        Mat depth_mat(Size(640, 480), CV_16U, (void *) aligned_depth_frame.get_data(), Mat::AUTO_STEP);
-        depthMat = depth_mat;
-
-        ///detect and test delay
-        auto start = std::chrono::system_clock::now();
+        std::unique_lock<std::mutex> lk(main_mutex);
+        std::unique_lock<std::mutex> lk2(main2_mutex);
         yoloSort.TrtDetect(colorMat, conf, det, aligned_depth_frame);
 
-        //TODO deal the box
-        //yoloSort.dealWithBox(det);
-        auto end = std::chrono::system_clock::now();
-        int delay_infer = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-        std::cout << "delay_infer:" << delay_infer << "ms" << std::endl;
-        usleep(10000);
     }
-    pipes.stop();
 }
 
 
@@ -65,39 +65,41 @@ void dealWithBox() {
 
     vector<DetectBox> validBox;
 
-    while (cv::waitKey(1) != 27) {
+    while (true) {
+
 
         if (!det.empty()) {
+            cout << "------start-------" << endl;
+            std::unique_lock<std::mutex> lk2(main2_mutex);
             for (auto box: det) {
-                if (!isnan(box.dis) || box.dis > 0.4 || box.dis < 10 || box.confidence > 0.6) {
+                if (!isnan(box.dis) && box.dis > 0.4 && box.dis < 10 && box.confidence > 0.6) {
 
                     validBox.push_back(box);
-                    //cout << "valid box ID" << box.trackID << endl;
                 }
             }
+            lk2.unlock();
         }
 
         if (!validBox.empty()) {
-            for (auto box: validBox) {
+            sort(validBox.begin(), validBox.end(),
+                 [](DetectBox box1, DetectBox box2) -> bool { return box1.dis < box2.dis; });
+            for (auto &box: validBox) {
                 trackBox(box);
-
-                sleep(1);
             }
         }
-        sleep(1);
+        cout << "------end-------" << endl;
+        usleep(100000);
     }
+
 }
 
 
 int main() {
 
-    my::Thread::ptr th1(std::make_shared<my::Thread>(&yolo, "yolo"));
-    my::Thread::ptr th2(std::make_shared<my::Thread>(&dealWithBox, "box"));
 
+    threadPool pool(4);
+    pool.submit(realsense);
+    pool.submit(yolo);
+    pool.submit(dealWithBox);
 
-    th1->join();
-    th2->join();
-
-
-    return 0;
 }

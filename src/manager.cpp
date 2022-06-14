@@ -3,7 +3,6 @@
 #include <utility>
 
 using std::vector;
-my::Mutex yoloMutex;
 using namespace cv;
 static Logger gLogger;
 
@@ -21,12 +20,9 @@ Trtyolosort::showDetection(cv::Mat &img, std::vector<DetectBox> &boxes, const rs
 
     cv::Mat temp = img.clone();
     //float *res;
-    for (auto box: boxes) {
+    for (auto &box: boxes) {
 
-        yoloMutex.lock();
         getBoxDepthAndAngle(box, aligned_depth_frame);
-        yoloMutex.unlock();
-
         cv::Point lt(box.x1, box.y1);
         cv::Point br(box.x2, box.y2);
         //cout << "Track ID" << box.trackID << endl;
@@ -88,7 +84,7 @@ float Trtyolosort::Get_Area_Depth(DetectBox box) {
 
 float Trtyolosort::GetBoxDepth2(DetectBox box, const rs2::depth_frame &alignedDepthFrame) {
     //Mat result = align_Depth2Color(depthMat,colorMat,profile);//调用对齐函数
-    float dis = measure_distance(depthMat, box, cv::Size(5, 5), profile);
+    float dis = measure_distance(depthMat, box, cv::Size(5, 5));
     float x = (box.x1 + box.x2) / 2, y = (box.y1 + box.y2) / 2;
     float pd_uv[2];
     float angle;
@@ -111,8 +107,10 @@ int Trtyolosort::TrtDetect(cv::Mat &frame, float &conf_thresh, std::vector<Detec
 
 
     // yolo detect
+    std::unique_lock<std::mutex> lk(m_mutex);
     yolov5_trt_detect(trt_engine, frame, conf_thresh, det);
     DS->sort(frame, det);
+    //setBoxAngleAndDis(frame,det,aligned_depth_frame);
     showDetection(frame, det, aligned_depth_frame);
     return 1;
 
@@ -132,8 +130,7 @@ void Trtyolosort::getBoxDepthAndAngle(DetectBox &box, const rs2::depth_frame &al
     float Pdc3[3];
     float pd_uv[2];
 
-    box.dis = measure_distance(depthMat, box, cv::Size((int) (box.x2 - box.x1) / 2, (int) (box.y2 - box.y1) / 2),
-                               profile);
+    box.dis = measure_distance(depthMat, box, cv::Size((int) (box.x2 - box.x1) / 3, (int) (box.y2 - box.y1) / 3));
 
     pd_uv[0] = box.pixel_x, pd_uv[1] = box.pixel_y;
     const auto intrinDepth = alignedDepthFrame.get_profile().as<rs2::video_stream_profile>().get_intrinsics();
@@ -144,9 +141,9 @@ void Trtyolosort::getBoxDepthAndAngle(DetectBox &box, const rs2::depth_frame &al
     getObjectAngle(box);
 
 
-   // cout << "X Y Z : " << Pdc3[0] << " " << Pdc3[1] << " " << Pdc3[2] << endl;
+    // cout << "X Y Z : " << Pdc3[0] << " " << Pdc3[1] << " " << Pdc3[2] << endl;
     //cout<<"O DIS : "<<sqrt(pow(Pdc3[0],2)+pow(Pdc3[1],2) +pow(Pdc3[2],2))<< endl;
-    //cout << "Dis : " << box.dis << endl;
+    // cout << "Dis : " << box.dis << endl;
 }
 
 
@@ -164,5 +161,25 @@ void Trtyolosort::dealWithBox(vector<DetectBox> boxes) {
     }
 
 }
+
+void
+Trtyolosort::setBoxAngleAndDis(cv::Mat &img, vector<DetectBox> &boxes, const rs2::depth_frame &aligned_depth_frame) {
+
+    for (auto box: boxes) {
+        getBoxDepthAndAngle(box, aligned_depth_frame);
+        /*  cv::Point lt(box.x1, box.y1);
+          cv::Point br(box.x2, box.y2);
+          //cout << "Track ID" << box.trackID << endl;
+          //float dis= getDistanceInMeters(box,aligned_depth_frame);
+          //float dis= GetBoxDepth2(box,aligned_depth_frame);
+          cv::rectangle(img, lt, br, cv::Scalar(255, 0, 0), 1);
+          //std::string lbl = cv::format("ID:%d_C:%d_CONF:%.2f", (int)box.trackID, (int)box.classID, box.confidence);
+          //std::string lbl = cv::format("ID:%d_CONF:%.2fDis:%.3f", (int)box.trackID, box.confidence,dis);
+          std::string lbl = cv::format("ID:%dA:%.2fD:%.2f", (int) box.trackID, box.angle, box.dis);
+          //std::string lbl = cv::format("ID:%d_x:%f_y:%f",(int)box.trackID,(box.x1+box.x2)/2,(box.y1+box.y2)/2);
+          cv::putText(img, lbl, lt, cv::FONT_HERSHEY_COMPLEX, 0.5, cv::Scalar(0, 255, 0));*/
+    }
+}
+
 
 

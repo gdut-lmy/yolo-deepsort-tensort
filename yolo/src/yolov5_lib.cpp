@@ -9,7 +9,6 @@
 #include "cuda_utils.h"
 #include "utils.h"
 #include "datatype.h"
-#include "thread.h"
 #define USE_FP16  // comment out this if want to use FP32
 #define DEVICE 0  // GPU id
 #define NMS_THRESH 0.4
@@ -17,7 +16,6 @@
 #define BATCH_SIZE 1
  
 // stuff we know about the network and the input/output blobs
-my::RWLock rwYoloLock;
 static const int INPUT_H = Yolo::INPUT_H;
 static const int INPUT_W = Yolo::INPUT_W;
 static const int CLASS_NUM = Yolo::CLASS_NUM;
@@ -167,33 +165,39 @@ int yolov5_trt_detect(void *h, cv::Mat &img, float threshold,std::vector<DetectB
  
     // Run inference
     //printf("yolov5_trt_detect start do inference\n");
-    auto start = std::chrono::system_clock::now();
-    doInference(*trt_ctx->exe_context, trt_ctx->cuda_stream, trt_ctx->buffers, trt_ctx->data, trt_ctx->prob, BATCH_SIZE);
- 
-    auto end = std::chrono::system_clock::now();
-    delay_infer = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
- 
-    std::cout <<"delay_proress:" << delay_preprocess << "ms, " << "delay_infer:" << delay_infer << "ms" << std::endl;
- 
-    //printf("yolov5_trt_detect start do process infer result \n");
- 
-    int fcount = 1;
-    int str_len;
-    std::vector<std::vector<Yolo::Detection>> batch_res(1);
-    auto& res = batch_res[0];
-    nms(res, &trt_ctx->prob[0], threshold, NMS_THRESH);
 
- 
-    i = 0;
-    for(i = 0 ; i < res.size(); i++){
-        int x1, y1, x2, y2;
-        int class_id;
-        float conf;
-        cv::Rect r = get_rect(img, res[i].bbox);
- 
-        DetectBox dd(r.x,r.y,r.x + r.width,r.y + r.height,(float)res[i].conf,(int)res[i].class_id);
-        det.push_back(dd);
-    }
+
+
+        auto start = std::chrono::system_clock::now();
+
+        doInference(*trt_ctx->exe_context, trt_ctx->cuda_stream, trt_ctx->buffers, trt_ctx->data, trt_ctx->prob,
+                    BATCH_SIZE);
+
+        auto end = std::chrono::system_clock::now();
+        delay_infer = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+
+      //  std::cout << "delay_proress:" << delay_preprocess << "ms, " << "delay_infer:" << delay_infer << "ms"<< std::endl;
+
+        //printf("yolov5_trt_detect start do process infer result \n");
+
+        int fcount = 1;
+        int str_len;
+        std::vector<std::vector<Yolo::Detection>> batch_res(1);
+        auto &res = batch_res[0];
+        nms(res, &trt_ctx->prob[0], threshold, NMS_THRESH);
+
+
+        i = 0;
+        for (i = 0; i < res.size(); i++) {
+            int x1, y1, x2, y2;
+            int class_id;
+            float conf;
+            cv::Rect r = get_rect(img, res[i].bbox);
+
+            DetectBox dd(r.x, r.y, r.x + r.width, r.y + r.height, (float) res[i].conf, (int) res[i].class_id);
+            det.push_back(dd);
+        }
+
     return 1;
 }
  

@@ -47,7 +47,7 @@ void DeepSort::sort(cv::Mat& frame, vector<DetectBox>& dets) {
     }
     // postprocess DETECTION -> Mat
     dets.clear();
-    for (auto r : result) {
+    for (const auto& r : result) {
         DETECTBOX i = r.second;
         DetectBox b(i(0), i(1), i(2)+i(0), i(3)+i(1), 1.);
         b.trackID = (float)r.first;
