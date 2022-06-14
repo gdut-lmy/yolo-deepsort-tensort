@@ -1,4 +1,0 @@
-/home/lmy/download/clion-2021.2.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/lmy/project/yolov5-deepsort-tensorrt
--- Configuring done
--- Generating done
--- Build files have been written to: /home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug

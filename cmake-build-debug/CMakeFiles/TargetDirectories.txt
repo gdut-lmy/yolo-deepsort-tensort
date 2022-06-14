@@ -1,5 +1,0 @@
-/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/deepsort.dir
-/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolov5_trt.dir
-/home/lmy/project/yolov5-deepsort-tensorrt/cmake-build-debug/CMakeFiles/yolosort.dir
