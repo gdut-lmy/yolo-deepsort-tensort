@@ -57,6 +57,7 @@ void trackBox(DetectBox box) {
 
     cout << "trackBox.dis ----------------------:" << box.dis << endl;
     cout << "trackBox ----------------------:" << box.trackID << endl;
+    std::cin.get();
 }
 
 

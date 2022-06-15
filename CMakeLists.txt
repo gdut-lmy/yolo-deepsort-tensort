@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 3.15)
 
 project(yolosort)
-list(APPEND CUDA_NVCC_FLAGS "-std=c++11")
-set(CMAKE_CXX_FLAGS "-std=c++0x")
+#list(APPEND CUDA_NVCC_FLAGS "-std=c++11")
+#set(CMAKE_CXX_FLAGS "-std=c++0x")
 find_package(OpenCV REQUIRED)
-add_definitions(-std=c++11)
+#add_definitions(-std=c++11)
 add_definitions(-DAPI_EXPORTS)
 option(CUDA_USE_STATIC_CUDA_RUNTIME OFF)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Release)
 
 find_package(CUDA REQUIRED)
-set(CUDA_NVCC_PLAGS ${CUDA_NVCC_PLAGS};-std=c++11;-g;-G;-gencode;arch=compute_53;code=sm_53)
+set(CUDA_NVCC_PLAGS ${CUDA_NVCC_PLAGS};-std=c++17;-g;-G;-gencode;arch=compute_53;code=sm_53)
 
 
 find_package(realsense2 REQUIRED)

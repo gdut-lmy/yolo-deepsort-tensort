@@ -110,7 +110,6 @@ int Trtyolosort::TrtDetect(cv::Mat &frame, float &conf_thresh, std::vector<Detec
     std::unique_lock<std::mutex> lk(m_mutex);
     yolov5_trt_detect(trt_engine, frame, conf_thresh, det);
     DS->sort(frame, det);
-    //setBoxAngleAndDis(frame,det,aligned_depth_frame);
     showDetection(frame, det, aligned_depth_frame);
     return 1;
 
