@@ -5,7 +5,10 @@
 #include <chrono>
 #include <threadPool.h>
 #include <RealSenseD435.h>
+#include <algorithm>
+#include <queue>
 #include "shared_mutex"
+#include "sharedMemory.h"
 
 ///define d455 depthMat and colorMat
 cv::Mat depthMat, colorMat;
@@ -61,10 +64,25 @@ void yolo() {
     }
 }
 
+struct cmp {
+    bool operator()(DetectBox box1, DetectBox box2) {
+        return box1.dis > box2.dis;
+    }
+};
+
 
 void dealWithBox() {
 
-    vector<DetectBox> validBox;
+    priority_queue<DetectBox, vector<DetectBox>, cmp> vB;
+
+    Sem sem1(0, "nihao");
+    Sem sem2(1, "nihao2");
+
+
+    sharedMemory m_shm(1234, 1024);
+
+    m_shm.sharedMemoryInit(nullptr, 0);
+
 
     while (true) {
         if (!det.empty()) {
@@ -73,26 +91,27 @@ void dealWithBox() {
             for (auto box: det) {
                 if (!isnan(box.dis) && box.dis > 0.4 && box.dis < 10 && box.confidence > 0.6) {
 
-                    validBox.push_back(box);
+                    vB.push(box);
                 }
             }
             lk2.unlock();
         }
 
-        if (!validBox.empty()) {
-            sort(validBox.begin(), validBox.end(),
-                 [](DetectBox box1, DetectBox box2) -> bool { return box1.dis < box2.dis; });
-            for (auto &box: validBox) {
-                //TODO send box data
-                trackBox(box);
-            }
+        if (!vB.empty()) {
+
+            string s1;
+            s1 = to_string(vB.top().dis) + ',' + to_string(vB.top().angle);
+            cout << s1 << endl;
+            sem2.wait();//-1
+            m_shm.writeData(s1);
+            sem1.post();
+            s1.clear();
         }
         cout << "------end-------\n";
         this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 
 }
-
 
 int main() {
 

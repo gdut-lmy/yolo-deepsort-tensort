@@ -1,6 +1,7 @@
 //
 // Created by lmy on 2022/5/19.
 //
+#include <thread>
 #include "objectProcess.h"
 
 
@@ -55,9 +56,12 @@ bool isValidBox(DetectBox box) {
 
 void trackBox(DetectBox box) {
 
+
     cout << "trackBox.dis ----------------------:" << box.dis << endl;
     cout << "trackBox ----------------------:" << box.trackID << endl;
-    std::cin.get();
+
+    this_thread::sleep_for(std::chrono::milliseconds(1000));
+
 }
 
 
