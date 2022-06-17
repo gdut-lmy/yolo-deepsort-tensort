@@ -73,11 +73,10 @@ struct cmp {
 
 void dealWithBox() {
 
-    priority_queue<DetectBox, vector<DetectBox>, cmp> vB;
+    priority_queue<DetectBox, vector<DetectBox>, cmp> validBox;
 
     Sem sem1(0, "nihao");
     Sem sem2(1, "nihao2");
-
 
     sharedMemory m_shm(1234, 1024);
 
@@ -85,29 +84,35 @@ void dealWithBox() {
 
 
     while (true) {
+
         if (!det.empty()) {
-            cout << "------start-------\n";
+
             std::shared_lock<std::shared_mutex> lk2(Rwlock_yolo_box);
             for (auto box: det) {
                 if (!isnan(box.dis) && box.dis > 0.4 && box.dis < 10 && box.confidence > 0.6) {
 
-                    vB.push(box);
+                    validBox.emplace(box);
                 }
             }
             lk2.unlock();
         }
 
-        if (!vB.empty()) {
+        if (!validBox.empty()) {
 
-            string s1;
-            s1 = to_string(vB.top().dis) + ',' + to_string(vB.top().angle);
-            cout << s1 << endl;
-            sem2.wait();//-1
-            m_shm.writeData(s1);
+            string sendData;
+            sendData = to_string(validBox.top().dis) + ',' + to_string(validBox.top().angle);
+
+            while (!validBox.empty())
+                validBox.pop();
+
+
+            sem2.wait();
+            m_shm.writeData(sendData);
             sem1.post();
-            s1.clear();
+
+            sendData.clear();
         }
-        cout << "------end-------\n";
+
         this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 
