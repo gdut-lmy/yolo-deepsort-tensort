@@ -23,7 +23,7 @@ void realsense() {
     rs.colorInit(COLOR_BGR8_640x480_60Hz);
     rs.depthInit(DEPTH_Z16_640x480_60HZ);
     rs.start();
-    cout << "******realsense init*****" << endl;
+    cout << "******realsense init*****\n";
     while (true) {
 
         std::unique_lock<std::shared_mutex> lk(Rwlock_real_yolo);
@@ -41,7 +41,7 @@ void realsense() {
 
 void yolo() {
 
-    ///
+    ///set the path of yolo and deepSort engine
     //const char *yolo_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/float1.engine";
     const char *yolo_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/yolov5s.engine";
     const char *sort_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/deepsort.engine";
@@ -68,7 +68,7 @@ void dealWithBox() {
 
     while (true) {
         if (!det.empty()) {
-            cout << "------start-------" << endl;
+            cout << "------start-------\n";
             std::shared_lock<std::shared_mutex> lk2(Rwlock_yolo_box);
             for (auto box: det) {
                 if (!isnan(box.dis) && box.dis > 0.4 && box.dis < 10 && box.confidence > 0.6) {
@@ -83,6 +83,7 @@ void dealWithBox() {
             sort(validBox.begin(), validBox.end(),
                  [](DetectBox box1, DetectBox box2) -> bool { return box1.dis < box2.dis; });
             for (auto &box: validBox) {
+                //TODO send box data
                 trackBox(box);
             }
         }
