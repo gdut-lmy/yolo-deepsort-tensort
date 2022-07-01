@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 2.8)
 
 project(yolosort)
 #list(APPEND CUDA_NVCC_FLAGS "-std=c++11")
@@ -24,8 +24,8 @@ include_directories(${PROJECT_SOURCE_DIR}/deepsort/include)
 include_directories(/usr/local/cuda/include)
 link_directories(/usr/local/cuda/lib64)
 # tensorrt
-include_directories(/home/lmy/source/TensorRT-7.1.3.4/include)
-link_directories(/home/lmy/source/TensorRT-7.1.3.4/lib)
+include_directories(/usr/include/aarch64-linux-gnu/)
+link_directories(/usr/lib/aarch64-linux-gnu/)
 
 include_directories(
     ${CUDA_INCLUDE_DIRS}

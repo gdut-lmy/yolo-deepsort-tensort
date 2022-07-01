@@ -14,7 +14,7 @@
 cv::Mat depthMat, colorMat;
 rs2::frame aligned_depth_frame;
 std::shared_mutex Rwlock_real_yolo, Rwlock_yolo_box;
-std::vector<DetectBox> det;
+std::vector<DetectBox> resultBox;
 
 
 using namespace cv;
@@ -23,8 +23,8 @@ using namespace cv;
 void realsense() {
 
     RealSenseD435 rs;
-    rs.colorInit(COLOR_BGR8_640x480_60Hz);
-    rs.depthInit(DEPTH_Z16_640x480_60HZ);
+    rs.colorInit(COLOR_BGR8_640x480_30Hz);
+    rs.depthInit(DEPTH_Z16_640x480_30HZ);
     rs.start();
     cout << "******realsense init*****\n";
     while (true) {
@@ -45,9 +45,9 @@ void realsense() {
 void yolo() {
 
     ///set the path of yolo and deepSort engine
-    //const char *yolo_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/float1.engine";
-    const char *yolo_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/yolov5s.engine";
-    const char *sort_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/deepsort.engine";
+    const char *yolo_engine = "/home/haique/project/yolo-deepsort-tensort/resource/jetson_yolov5.engine";
+    //const char *yolo_engine = "/home/haique/project/yolo-deepsort-tensort/resource/jetson_float.engine";
+    const char *sort_engine = "/home/haique/project/yolo-deepsort-tensort/resource/jetson_sort.engine";
 
     ///set conf
     float conf = 0.6;
@@ -59,7 +59,7 @@ void yolo() {
 
         std::shared_lock<std::shared_mutex> lk(Rwlock_real_yolo);
         std::unique_lock<std::shared_mutex> lk2(Rwlock_yolo_box);
-        yoloSort.TrtDetect(colorMat, conf, det, aligned_depth_frame);
+        yoloSort.TrtDetect(colorMat, conf, resultBox, aligned_depth_frame);
 
     }
 }
@@ -75,28 +75,24 @@ void dealWithBox() {
 
     priority_queue<DetectBox, vector<DetectBox>, cmp> validBox;
 
-    Sem sem1(0, "nihao");
-    Sem sem2(1, "nihao2");
 
-    sharedMemory m_shm(1234, 1024);
+    sharedMemory m_shm(0, "nihao", 1, "nihao2", 1234, 1024);
 
     m_shm.sharedMemoryInit(nullptr, 0);
 
 
     while (true) {
 
-        if (!det.empty()) {
+        if (!resultBox.empty()) {
 
             std::shared_lock<std::shared_mutex> lk2(Rwlock_yolo_box);
-            for (auto box: det) {
-                if (!isnan(box.dis) && box.dis > 0.4 && box.dis < 10 && box.confidence > 0.6) {
-
+            for (auto box: resultBox) {
+                if (!isnan(box.dis) && !isnan(box.angle) && box.dis > 0.4 && box.dis < 10 && box.confidence > 0.6) {
                     validBox.emplace(box);
                 }
             }
             lk2.unlock();
         }
-
         if (!validBox.empty()) {
 
             string sendData;
@@ -105,10 +101,8 @@ void dealWithBox() {
             while (!validBox.empty())
                 validBox.pop();
 
-
-            sem2.wait();
+            std::cout << sendData << std::endl;
             m_shm.writeData(sendData);
-            sem1.post();
 
             sendData.clear();
         }
@@ -118,11 +112,42 @@ void dealWithBox() {
 
 }
 
+void videoTest() {
+
+    char *yolo_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/floating.engine";
+    char *sort_engine = "/home/lmy/project/yolov5-deepsort-tensorrt/resource/deepsort.engine";
+    float conf_thre = 0.4;
+    Trtyolosort yosort(yolo_engine, sort_engine);
+    VideoCapture capture("/home/lmy/download/Video_Sequence_001_050/Sequence_49.avi");
+    cv::Mat frame;
+    if (!capture.isOpened()) {
+        std::cout << "can not open" << std::endl;
+    }
+
+    std::vector<DetectBox> det;
+    auto start_draw_time = std::chrono::system_clock::now();
+
+    while (waitKey(1) != 27) {
+
+        capture.read(frame);
+        auto start = std::chrono::system_clock::now();
+        yosort.TrtDetect(frame, conf_thre, det);
+        auto end = std::chrono::system_clock::now();
+        int delay_infer = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        std::cout << "delay_infer:" << delay_infer << "ms" << std::endl;
+        usleep(20000);
+
+    }
+    capture.release();
+}
+
 int main() {
 
     threadPool pool(4);
     pool.submit(realsense);
     pool.submit(yolo);
     pool.submit(dealWithBox);
+    //pool.sumbit(videoTest);
+
 
 }

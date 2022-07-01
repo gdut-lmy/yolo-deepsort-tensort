@@ -19,9 +19,32 @@
 #include "unistd.h"
 
 
+
+//进程同步信号量
+class Sem {
+
+public:
+    Sem(int semValue, char *name, int flag = O_CREAT, mode_t mode = 0666);
+
+    ~Sem();
+
+    void wait();
+
+    void post();
+
+private:
+
+    int m_flag;
+    char *m_name;
+    unsigned int m_value;
+    mode_t m_mode;
+    sem_t *m_sem;
+};
+
 class sharedMemory {
 public:
-    sharedMemory(key_t key, int size, int flag = 0666 | IPC_CREAT);
+    sharedMemory(int sem1Value, char *name1, int sem2Value, char *name2, key_t key, int size,
+                 int flag = 0666 | IPC_CREAT);
 
     void *sharedMemoryInit(const void *buf, int shmFlag);
 
@@ -54,6 +77,7 @@ private:
     bool getShmctl(int cmd, struct shmid_ds *buf) const;
 
 private:
+    Sem sem1, sem2;
     key_t m_key;//为共享内存段命名，多个共享同一片内存的进程使用同一个key
     int m_size;//共享内存容量
     int m_flag;//权限标志位
@@ -61,27 +85,5 @@ private:
     void *m_ptr;//得到的共享内存首地址
 
 };
-
-//进程同步信号量
-class Sem {
-
-public:
-    Sem(int sem1Value, char *name, int flag = O_CREAT, mode_t mode = 0666);
-
-    ~Sem();
-
-    void wait();
-
-    void post();
-
-private:
-
-    int m_flag;
-    char *m_name;
-    unsigned int m_value;
-    mode_t m_mode;
-    sem_t *m_sem;
-};
-
 
 #endif //SHM_SHAREDMEMORY_H

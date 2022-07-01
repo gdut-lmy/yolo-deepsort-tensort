@@ -140,9 +140,9 @@ void Trtyolosort::getBoxDepthAndAngle(DetectBox &box, const rs2::depth_frame &al
     getObjectAngle(box);
 
 
-    // cout << "X Y Z : " << Pdc3[0] << " " << Pdc3[1] << " " << Pdc3[2] << endl;
+    cout << "X Y Z : " << Pdc3[0] << " " << Pdc3[1] << " " << Pdc3[2] << endl;
     //cout<<"O DIS : "<<sqrt(pow(Pdc3[0],2)+pow(Pdc3[1],2) +pow(Pdc3[2],2))<< endl;
-    // cout << "Dis : " << box.dis << endl;
+    cout << "Dis : " << box.dis << endl;
 }
 
 
